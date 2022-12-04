@@ -1,29 +1,48 @@
+def gv
+
 pipeline {
     agent any
+    enviroment {
+        NEW_VERSION = '1.3.0',
+        SERVER_CREDENTIALS = credentials('')
+    }
     tools {
       nodejs '16.4.1'
     }
     stages {
+        stage('Initial scripts') {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage('Pulling packages') {
             steps {
-                echo 'Pulling..'
-                sh 'npm install'
+                script {
+                    gv.pullPackages()
+                }
             }
         }
         stage('Build') {
             steps {
-                echo 'Building..'
-                sh 'npm run build'
+               script {
+                    gv.build()
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                script {
+                    gv.test()
+                }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                script {
+                    gv.deploy()
+                }
             }
         }
     }
