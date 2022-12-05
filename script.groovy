@@ -14,7 +14,9 @@ def test() {
 }
 
 def deploy() {
-    echo 'Deploy..'
+    sh 'docker build . -t tuanvinhtl/nuxt-app-1'
+    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+    sh 'docker push tuanvinhtl/nuxt-app-1'
 }
 
 return this

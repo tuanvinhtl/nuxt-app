@@ -4,13 +4,14 @@ pipeline {
     agent any
     environment {
         NEW_VERSION = '1.3.0'
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub')
     }
     parameters {
         choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
     tools {
-      nodejs '16.4.1'
+        nodejs '16.4.1'
     }
     stages {
         stage('Initial scripts') {
@@ -29,7 +30,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-               script {
+                script {
                     gv.build()
                 }
             }
