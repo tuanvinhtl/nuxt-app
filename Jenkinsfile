@@ -1,7 +1,7 @@
 def gv
 
 pipeline {
-    agent { label 'linux2' }
+    agent any
     environment {
         NEW_VERSION = '1.3.0'
         DOCKERHUB_CREDENTIALS = credentials('docker-hub')
@@ -51,6 +51,13 @@ pipeline {
             steps {
                 script {
                     gv.deploy()
+                }
+            }
+        }
+        stage('Building image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
