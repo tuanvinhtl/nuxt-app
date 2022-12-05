@@ -1,7 +1,7 @@
 def gv
 
 pipeline {
-    agent {label 'Built-In Node'}
+    agent { label 'linux' }
     environment {
         NEW_VERSION = '1.3.0'
         DOCKERHUB_CREDENTIALS = credentials('docker-hub')
