@@ -12,7 +12,6 @@ pipeline {
     }
     tools {
         nodejs '16.4.1'
-        docker 'docker:latest'
     }
     stages {
         stage('Initial scripts') {
