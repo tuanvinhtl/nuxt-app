@@ -12,12 +12,13 @@ pipeline {
     }
     tools {
         nodejs '16.4.1'
+        docker 'docker:latest'
     }
     stages {
         stage('Initial scripts') {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    gv = load 'script.groovy'
                     def dockerHome = tool 'docker:latest'
                     env.PATH = "${dockerHome}/bin:${env.PATH}"
                 }
