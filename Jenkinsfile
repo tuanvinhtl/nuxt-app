@@ -60,7 +60,8 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
-                    sh "docker -v"
+                    sh 'docker build . -t tuanvinhtl/nuxt-app-1'
+                    sh 'docker images'
                 }
             }
         }
