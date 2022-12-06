@@ -57,7 +57,10 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
-                    sh 'docker -v'
+                    docker.withRegistry('https://docker.mycorp.com/') {
+                        def myImg = docker.image('myImg')
+                        sh "docker pull --all-tags ${myImg.imageName()}"
+                    }
                 }
             }
         }
