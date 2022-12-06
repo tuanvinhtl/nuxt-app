@@ -12,6 +12,7 @@ pipeline {
     }
     tools {
         nodejs '16.4.1'
+        docker 'docker:latest'
     }
     stages {
         stage('Initial scripts') {
@@ -57,10 +58,7 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
-                    docker.withRegistry('https://docker.mycorp.com/') {
-                        def myImg = docker.image('myImg')
-                        sh "docker pull --all-tags ${myImg.imageName()}"
-                    }
+                    sh "docker -v"
                 }
             }
         }
