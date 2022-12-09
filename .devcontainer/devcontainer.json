@@ -1,0 +1,11 @@
+{
+    "name": "VUE ENV",
+    "dockerFile": "Dockerfile",
+    "appPort": [3000],
+    "runArgs": ["-u", "node"],
+    "settings": {
+        "workbench.colorTheme": "Default Dark+"
+    },
+    "postCreateCommand": "npm install",
+    "extensions": ["esbenp.prettier-vscode", "octref.vetur", "bradlc.vscode-tailwindcss","eamodio.gitlens"]
+}
