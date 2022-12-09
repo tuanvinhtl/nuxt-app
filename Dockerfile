@@ -1,22 +1,21 @@
 FROM node:16.3.0-alpine as builder
 
-# Create app directory
-WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+# create destination directory
+RUN mkdir -p /usr/src/nuxt-app
+WORKDIR /usr/src/nuxt-app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# update and install dependency
+RUN apk update && apk upgrade
+RUN apk add git
 
-# If you are building your code for production
-# RUN npm install --only=production
+# copy the app, note .dockerignore
+COPY . /usr/src/nuxt-app/
 RUN npm install
-#RUN npm install acorn-dynamic-import --save-dev
-# Bundle app source
-COPY . .
 RUN npm run build
-ENV HOST 0.0.0.0
-ENV PORT 3000
+
 EXPOSE 3000
+
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=3000
+
 CMD [ "npm", "start" ]
